@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+</head>
+<body>
+<script>
+    // const arr = [1, 2, 3];
+    // console.log(typeof arr);
+    // console.log(Array.isArray(arr));
+    // console.log(arr);
+    //
+    // arr.push(8);
+    // i = arr.length;
+    // console.log(i);
+    // const last = arr.pop();
+    // console.log(last);
+
+
+    const userList = ['alex', 'nick', 'kate'];
+
+    const userListMapFn = (item, i) =>({name: item, id: i});
+    const obj = userListMapFn(userList[0]);
+    console.log(obj);
+
+    const userObjectsList = userList.map(userListMapFn);
+    console.log(userObjectsList);
+
+
+    // const userObjectsList = userList.map((user) => {
+    //     return (
+    //         {
+    //             name:user
+    //         }
+    //     )
+    // });
+
+    // const user = {
+    //     name: 'alex',
+    //     id: 5,
+    //     status: 'registered',
+    //     isSmoke: true;
+    // }
+
+</script>
+</body>
+</html>
