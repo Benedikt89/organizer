@@ -1,32 +1,51 @@
 import React from 'react';
 import './App.css';
-import TodoListHeader from "./TodoListHeader";
-import TodoListTasks from "./TodoListTasks";
-import TodoListFooter from "./TodoFooter";
+import TodoHeader from "./Elements/Header";
+import TodoFooter from "./Elements/Footer";
+import TodoTasks from "./Elements/TodoTasks";
+
 
 class App extends React.Component {
 
     tasks = [
-        {title: 'JS', isDone: false, priority: 'medium'},
-        {title: 'HTML', isDone: true, priority: 'low'},
-        {title: 'CSS', isDone: true,  priority: 'low'},
-        {title: 'React', isDone: false, priority: 'High'},
+        {
+            ifChecked: true,
+            taskName: 'JS',
+            priority: 'medium',
+        },
+
+        {
+            ifChecked: false,
+            taskName: 'React',
+            priority: 'high',
+        },
+
+        {
+            ifChecked: true,
+            taskName: 'Css',
+            priority: 'medium',
+        },
+
+        {
+            ifChecked: true,
+            taskName: 'THML',
+            priority: 'low',
+        },
     ];
 
-    filterValue = 'All';
-
     render = () => {
+
+
         return (
             <div className="App">
                 <div className="todoList">
-
-                    <TodoListHeader/>
-                    <TodoListTasks tasks={this.tasks}/>
-                    <TodoListFooter filterValue={this.filterValue}/>
-
+                    <TodoHeader/>
+                    <TodoTasks tasks={this.tasks}/>
+                    <TodoFooter filterValue={'Active'}/>
                 </div>
             </div>
         );
+
     }
 }
 
