@@ -1,11 +1,5 @@
-
-.todoHeader {
-
-}
-
-.todoListHeaderTitle{
-    text-align: center;
-  color: orangered;
+.inputGroup {
+  text-align: center;
 }
 .taskForm{
   padding: 5px 8px;

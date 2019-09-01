@@ -1,0 +1,16 @@
+
+.todoList {
+  border: 1px solid blue;
+  margin: 5px 30px 5px 5px;
+  width: 300px;
+  color: aliceblue;
+}
+
+.todoList > div {
+  width: 300px;
+  color: aliceblue;
+}
+
+.todoList-task {
+  color: aliceblue;
+}

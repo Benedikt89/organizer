@@ -17,11 +17,11 @@ class TodoFooter extends React.Component {
     return(
 
         <div className="todoList-footer">
-            {this.state.isHidden &&
+            {!this.state.isHidden &&
             <div>
                 <button
                     className={style.button}
-                    onClick={()=> {this.setState({isHidden:false})}}
+                    onClick={()=> {this.setState({isHidden:true})}}
                 >Hide</button>
 
                 <button
@@ -41,10 +41,10 @@ class TodoFooter extends React.Component {
 
             </div>
             }
-            {!this.state.isHidden &&
+            {this.state.isHidden &&
             <button
                 className={style.button}
-                onClick={() => {this.setState({isHidden:true})
+                onClick={() => {this.setState({isHidden:false})
                 }}
             >Show</button>
             }

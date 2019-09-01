@@ -20,7 +20,6 @@ class TodoTask extends React.Component {
         let taskChanger = () => {
             this.setState({currentName: this.props.task.taskName, changeStatus: true})
         };
-
         let inputChange = () => {
             let newText = this.newTaskTitle.current.value;
             if (newText === '') {
@@ -29,7 +28,6 @@ class TodoTask extends React.Component {
                 this.setState({currentName: newText, warning: false})
             }
         };
-
         let addButton = () => {
             if (this.state.currentName !== '') {
                 this.props.taskTitleEdit(this.props.task.id, this.state.currentName);
@@ -43,9 +41,10 @@ class TodoTask extends React.Component {
                 addButton()
             }
         };
-
         let classForWarning = () => this.state.warning ? style.warning : style.taskForm;
-
+        let deleteTask = () => {
+            this.props.deleteTask(this.props.task.id)
+        };
 
         let onChangeBox = (e) => {
             this.props.isDoneChanger(this.props.task.id, e.currentTarget.checked);
@@ -56,9 +55,11 @@ class TodoTask extends React.Component {
                 <input type="checkbox"
                        checked={this.props.task.isDone}
                        onClick={onChangeBox}
+                       className={style.container}
                 />
                 {!this.state.changeStatus ?
                     <span
+                        className={style.taskContent}
                     onClick={taskChanger}
                 >{this.props.task.taskName}</span>
                 : <input
@@ -71,8 +72,12 @@ class TodoTask extends React.Component {
                         onKeyPress={addOnKey}
                     />
                 }
-                <span> priority: {this.props.task.priority}.</span>
+                <span> {this.props.task.priority}.</span>
                 <span> id: {this.props.task.id}</span>
+                <button
+                    className={style.deleteBtn}
+                    onClick={deleteTask}
+                >X</button>
             </div>
         )
     }
