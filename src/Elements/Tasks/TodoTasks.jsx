@@ -12,7 +12,6 @@ class TodoTasks extends React.Component {
 
         let tasksO = this.props.tasks.map( task =>
             <TodoTask
-                id={task.id}
                 task={task}
                 deleteTask={this.props.deleteTask}
                 isDoneChanger={this.props.isDoneChanger}

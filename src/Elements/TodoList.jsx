@@ -3,54 +3,12 @@ import style from './TodoList.module.css';
 import TodoHeader from "./Header/Header";
 import TodoFooter from "./Footer/Footer";
 import TodoTasks from "./Tasks/TodoTasks";
+import axios from "axios";
+import instance from "../api";
 
 
 class TodoList extends React.Component {
-
-    componentDidMount() {
-        this.restoreState();
-    }
-
-    state = {
-        tasks: [
-            {
-                id: 1,
-                isDone: true,
-                taskName: 'JS',
-                priority: 'medium',
-            },
-
-        ],
-        tasksFilter: 'All',
-    };
-    nextTaskId = 1;
-    saveState = () => {
-        let stateAsString = JSON.stringify(this.state);
-        localStorage.setItem('our-state-'+this.props.id, stateAsString);
-    };
-    restoreState = () => {
-        let state = { tasks: [
-                {
-                    id: 1,
-                    isDone: true,
-                    taskName: 'JS',
-                    priority: 'medium',
-                },
-
-            ],
-            tasksFilter: 'All',
-        };
-        let stateAsString = localStorage.getItem('our-state-'+this.props.id);
-        if (stateAsString != null) {
-            state = JSON.parse(stateAsString);
-        }
-        this.setState(state)
-    };
-
-    setFilter = (filter) => {
-    this.setState({tasksFilter: filter}, ()=> { this.saveState(); });
-};
-    addTask = (text) => {
+    addTask__ = (text) => {
         let usedIdArr = this.state.tasks.map( t=> t.id);
         usedIdArr.sort((a, b) => a - b );
 
@@ -69,6 +27,58 @@ class TodoList extends React.Component {
         this.setState({tasks: newTasks}, ()=> { this.saveState(); });
         this.nextTaskId = 1;
     };
+    restoreState__ = () => {
+        let state = { tasks: [
+                {
+                    id: 1,
+                    isDone: true,
+                    taskName: 'JS',
+                    priority: 'medium',
+                },
+
+            ],
+            tasksFilter: 'All',
+        };
+        let stateAsString = localStorage.getItem('our-state-'+this.props.id);
+        if (stateAsString != null) {
+            state = JSON.parse(stateAsString);
+        }
+        this.setState(state)
+    };
+    nextTaskId = 1;
+
+    componentDidMount() {
+        this.restoreState();
+    }
+
+    state = {
+        tasks: [],
+        tasksFilter: 'All',
+    };
+
+    saveState = () => {
+        let stateAsString = JSON.stringify(this.state);
+        localStorage.setItem('our-state-'+this.props.id, stateAsString);
+    };
+    restoreState = () => {
+        instance.get(`todo-lists/${this.props.id}/tasks`)
+            .then( res => {
+                this.setState({tasks: res.data.items });
+            });
+    };
+
+    addTask = (text) => {
+        instance.post(`todo-lists/${this.props.id}/tasks`,{title: text})
+            .then( res => {
+                let newTask = res.data.data.item;
+                this.setState({tasks: [...this.state.tasks, newTask]})
+            })
+    };
+
+    setFilter = (filter) => {
+    this.setState({tasksFilter: filter}, ()=> { this.saveState(); });
+};
+
     isDoneChanger = (taskId, status) => {
         let newTasks = this.state.tasks.map( t => {
 

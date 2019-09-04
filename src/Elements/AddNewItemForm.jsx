@@ -26,8 +26,9 @@ export default class AddNewItemForm extends React.Component {
         };
 
         let addButton = () => {
+            let newText=this.state.inputArea;
             if (this.state.inputArea !== '') {
-                this.props.addItem(this.state.inputArea);
+                this.props.addItem(newText);
                 this.setState({inputArea: ''})
             } else {this.setState({warning: true})}
         };

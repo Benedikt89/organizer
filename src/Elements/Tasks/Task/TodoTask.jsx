@@ -16,9 +16,8 @@ class TodoTask extends React.Component {
     };
 
     render = () => {
-
         let taskChanger = () => {
-            this.setState({currentName: this.props.task.taskName, changeStatus: true})
+            this.setState({currentName: this.props.task.title, changeStatus: true})
         };
         let inputChange = () => {
             let newText = this.newTaskTitle.current.value;
@@ -41,6 +40,7 @@ class TodoTask extends React.Component {
                 addButton()
             }
         };
+        let classIsDone = () => this.props.task.isDone ? style.asd : style.asdf;
         let classForWarning = () => this.state.warning ? style.warning : style.taskForm;
         let deleteTask = () => {
             this.props.deleteTask(this.props.task.id)
@@ -48,6 +48,16 @@ class TodoTask extends React.Component {
 
         let onChangeBox = (e) => {
             this.props.isDoneChanger(this.props.task.id, e.currentTarget.checked);
+        };
+        let priority = () => {
+            switch (this.props.task.priority) {
+                case 0: return 'low';
+                case 1: return 'middle';
+                case 2: return 'hi';
+                case 3: return 'Urgently';
+                case 4: return 'Later';
+                default: return 'none';
+            }
         };
 
         return (
@@ -61,7 +71,7 @@ class TodoTask extends React.Component {
                     <span
                         className={style.taskContent}
                     onClick={taskChanger}
-                >{this.props.task.taskName}</span>
+                >{this.props.task.title}</span>
                 : <input
                         ref={this.newTaskTitle}
                         className={classForWarning()}
@@ -72,8 +82,7 @@ class TodoTask extends React.Component {
                         onKeyPress={addOnKey}
                     />
                 }
-                <span> {this.props.task.priority}.</span>
-                <span> id: {this.props.task.id}</span>
+                <span> {priority()}.</span>
                 <button
                     className={style.deleteBtn}
                     onClick={deleteTask}
