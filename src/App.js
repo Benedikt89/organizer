@@ -15,11 +15,11 @@ class App extends React.Component {
         todolists: [
             {
                 id: 1,
-                title: 'asd'
+                title: 'Today'
             },
             {
                 id: 2,
-                title: 'asdfg2'
+                title: 'Tomorrow'
             },
         ],
     };

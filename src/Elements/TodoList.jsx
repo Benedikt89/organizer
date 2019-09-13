@@ -23,11 +23,14 @@ class TodoList extends React.Component {
         ],
         tasksFilter: 'All',
     };
+
     nextTaskId = 1;
+
     saveState = () => {
         let stateAsString = JSON.stringify(this.state);
         localStorage.setItem('our-state-'+this.props.id, stateAsString);
     };
+
     restoreState = () => {
         let state = { tasks: [
                 {
@@ -50,6 +53,7 @@ class TodoList extends React.Component {
     setFilter = (filter) => {
     this.setState({tasksFilter: filter}, ()=> { this.saveState(); });
 };
+
     addTask = (text) => {
         let usedIdArr = this.state.tasks.map( t=> t.id);
         usedIdArr.sort((a, b) => a - b );
@@ -69,6 +73,7 @@ class TodoList extends React.Component {
         this.setState({tasks: newTasks}, ()=> { this.saveState(); });
         this.nextTaskId = 1;
     };
+
     isDoneChanger = (taskId, status) => {
         let newTasks = this.state.tasks.map( t => {
 
@@ -81,6 +86,7 @@ class TodoList extends React.Component {
         });
         this.setState({tasks: newTasks}, ()=> { this.saveState(); })
     };
+
     taskTitleEdit = (taskId, text) => {
         let newTasks = this.state.tasks.map( t => {
 
@@ -93,22 +99,7 @@ class TodoList extends React.Component {
         });
     this.setState({tasks: newTasks}, ()=> { this.saveState(); })
     };
-    clearStorage = () => {
-        let state = { tasks: [
-                {
-                    isDone: true,
-                    taskName: 'JS',
-                    priority: 'medium',
-                    id: 1,
-                },
 
-            ],
-            tasksFilter: 'All',
-        };
-        let stateAsString = JSON.stringify(state);
-        localStorage.setItem('our-state-'+this.state.id, stateAsString);
-        this.setState(state);
-    };
     deleteTask = (taskId) => {
         let newTasks = this.state.tasks.filter( t => {
             if (t.id !== taskId) {
