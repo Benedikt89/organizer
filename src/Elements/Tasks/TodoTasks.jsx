@@ -15,8 +15,7 @@ class TodoTasks extends React.Component {
                 id={task.id}
                 task={task}
                 deleteTask={this.props.deleteTask}
-                isDoneChanger={this.props.isDoneChanger}
-                taskTitleEdit={this.props.taskTitleEdit}
+                editTask={this.props.editTask}
             />
         );
 

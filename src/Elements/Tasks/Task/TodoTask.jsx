@@ -28,14 +28,16 @@ class TodoTask extends React.Component {
                 this.setState({currentName: newText, warning: false})
             }
         };
+
         let addButton = () => {
             if (this.state.currentName !== '') {
-                this.props.taskTitleEdit(this.props.task.id, this.state.currentName);
+                this.props.editTask(this.props.task.id, 'title', this.state.currentName);
                 this.setState({changeStatus: false})
             } else {
                 this.setState({warning: true})
             }
         };
+
         let addOnKey = (e) => {
             if (e.key === 'Enter') {
                 addButton()
@@ -47,11 +49,10 @@ class TodoTask extends React.Component {
         };
 
         let onChangeBox = (e) => {
-            this.props.isDoneChanger(this.props.task.id, e.currentTarget.checked);
+            this.props.editTask(this.props.task.id, 'isDone', e.currentTarget.checked);
         };
-
         return (
-            <div className={style.task}>
+            <div className={this.props.task.isDone ? style.task : style.completed}>
                 <input type="checkbox"
                        checked={this.props.task.isDone}
                        onClick={onChangeBox}
@@ -60,9 +61,9 @@ class TodoTask extends React.Component {
                 {!this.state.changeStatus ?
                     <span
                         className={style.taskContent}
-                    onClick={taskChanger}
-                >{this.props.task.taskName}</span>
-                : <input
+                        onClick={taskChanger}
+                    >{this.props.task.taskName}</span>
+                    : <input
                         ref={this.newTaskTitle}
                         className={classForWarning()}
                         value={this.state.currentName}
@@ -77,7 +78,8 @@ class TodoTask extends React.Component {
                 <button
                     className={style.deleteBtn}
                     onClick={deleteTask}
-                >X</button>
+                >X
+                </button>
             </div>
         )
     }

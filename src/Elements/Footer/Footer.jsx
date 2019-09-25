@@ -10,9 +10,9 @@ class TodoFooter extends React.Component {
 
     render = () => {
 
-        let classForAll = this.props.filterValue === 'All' ? style.active : '';
-        let classForCompleted = this.props.filterValue === 'Completed' ? style.active : '';
-        let classForActive = this.props.filterValue === 'Active' ? style.active : '';
+        let classForAll = this.props.filterValue === 'All' ? style.active : style.button;
+        let classForCompleted = this.props.filterValue === 'Completed' ? style.active : style.button;
+        let classForActive = this.props.filterValue === 'Active' ? style.active : style.button;
 
     return(
 

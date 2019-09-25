@@ -1,13 +1,17 @@
 
-.button {
-  margin: 15px;
-  background-color: black;
-  border: 1px solid green;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-}
-.active{
-  background-color: #006914;
-}
+.button
+{
+    margin: 5px;
+    padding: 5px 5px;
 
+    color: white;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: black;
+}
+.active
+{
+    padding: 5px 5px;
+
+    background-color: #006914;
+}
