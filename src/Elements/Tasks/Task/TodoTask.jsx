@@ -4,24 +4,20 @@ import style from './TodoTask.module.css';
 
 class TodoTask extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.newTaskTitle = React.createRef();
-    }
-
     state = {
         changeStatus: false,
         warning: false,
-        currentName: '',
+        currentName: this.props.task.title,
     };
 
     render = () => {
 
         let taskChanger = () => {
-            this.setState({currentName: this.props.task.taskName, changeStatus: true})
+            this.setState({currentName: this.props.task.title, changeStatus: true})
         };
-        let inputChange = () => {
-            let newText = this.newTaskTitle.current.value;
+
+        let inputChange = (e) => {
+            let newText = e.currentTarget.value;
             if (newText === '') {
                 this.setState({currentName: newText, warning: true});
             } else {
@@ -31,7 +27,7 @@ class TodoTask extends React.Component {
 
         let addButton = () => {
             if (this.state.currentName !== '') {
-                this.props.editTask(this.props.task.id, 'title', this.state.currentName);
+                this.props.editTask(this.props.task.id, {title: this.state.currentName});
                 this.setState({changeStatus: false})
             } else {
                 this.setState({warning: true})
@@ -44,17 +40,18 @@ class TodoTask extends React.Component {
             }
         };
         let classForWarning = () => this.state.warning ? style.warning : style.taskForm;
+
         let deleteTask = () => {
             this.props.deleteTask(this.props.task.id)
         };
 
         let onChangeBox = (e) => {
-            this.props.editTask(this.props.task.id, 'isDone', e.currentTarget.checked);
+            this.props.editTask(this.props.task.id, {completed: e.currentTarget.checked});
         };
         return (
-            <div className={this.props.task.isDone ? style.task : style.completed}>
+            <div className={this.props.task.completed ? style.task : style.completed}>
                 <input type="checkbox"
-                       checked={this.props.task.isDone}
+                       checked={this.props.task.completed}
                        onClick={onChangeBox}
                        className={style.container}
                 />
@@ -62,9 +59,8 @@ class TodoTask extends React.Component {
                     <span
                         className={style.taskContent}
                         onClick={taskChanger}
-                    >{this.props.task.taskName}</span>
+                    >{this.props.task.title}</span>
                     : <input
-                        ref={this.newTaskTitle}
                         className={classForWarning()}
                         value={this.state.currentName}
                         onBlur={addButton}
@@ -74,7 +70,7 @@ class TodoTask extends React.Component {
                     />
                 }
                 <span> {this.props.task.priority}.</span>
-                <span> id: {this.props.task.id}</span>
+                <span> status: {this.props.task.status}</span>
                 <button
                     className={style.deleteBtn}
                     onClick={deleteTask}

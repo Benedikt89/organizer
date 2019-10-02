@@ -3,18 +3,20 @@ import style from './TodoList.module.css';
 import TodoHeader from "./Header/Header";
 import TodoFooter from "./Footer/Footer";
 import TodoTasks from "./Tasks/TodoTasks";
+import {connect} from "react-redux";
+import {addTask, deleteList, deleteTask, editTask, getTasks} from "../Redux/reducers";
 
 
 class TodoList extends React.Component {
-
-    // componentDidMount() {
-    //     this.restoreState();
-    // }
 
     state = {
         tasks: this.props.tasks,
         tasksFilter: 'All',
     };
+
+    componentDidMount() {
+        this.props.getTasks(this.props.id);
+    }
 
     // saveState = () => {
     //     let stateAsString = JSON.stringify(this.state);
@@ -37,44 +39,31 @@ class TodoList extends React.Component {
     };
 
     addTask = (text) => {
-        let nextTaskId = 1;
-        let usedIdArr = this.props.tasks.map(t => t.id);
-        usedIdArr.sort((a, b) => a - b);
-        for (let i = 0; i < usedIdArr.length; i++) {
-            if (usedIdArr[i] === nextTaskId) {
-                nextTaskId++;
-            } else {
-                break;
-            }
-        }
-        let newTask = {
-            id: nextTaskId,
-            isDone: true,
-            taskName: text,
-            priority: 'low',
-        };
-        this.props.addTask(this.props.id, newTask);
+        this.props.addTask(this.props.id, text);
     };
 
     deleteTask = (taskId) => {
         this.props.deleteTask(this.props.id, taskId);
     };
 
-    editTask = (taskId, change, value) => {
-        this.props.editTask(this.props.id, taskId, change, value);
+    editTask = (taskId, change) => {
+        let newTask = this.props.tasks.find(t=> t.id === taskId);
+        newTask = {...newTask, ...change};
+        this.props.editTask(this.props.id, newTask);
     };
 
     render = () => {
-
+        let tasks = this.props.tasks ? this.props.tasks : [];
         return (
             <div className={style.todoList}>
                 <TodoHeader
                     title={this.props.title}
                     addTask={this.addTask}
+                    deleteList={()=>{this.props.deleteList(this.props.id)}}
                 />
 
                 <TodoTasks tasks={
-                    this.props.tasks.filter(t => {
+                    tasks.filter(t => {
                         if (this.state.tasksFilter === 'All')
                             return true;
                         if (this.state.tasksFilter === 'Completed')
@@ -95,6 +84,6 @@ class TodoList extends React.Component {
 
     }
 }
-
-export default TodoList;
+const ConnectedList = connect(null, {addTask, deleteList, deleteTask, editTask, getTasks})(TodoList);
+export default ConnectedList;
 

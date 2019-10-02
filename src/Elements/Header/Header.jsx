@@ -11,6 +11,7 @@ class TodoHeader extends React.Component {
         return (
             <div className={style.todoHeader}>
                 <h3 className={style.todoListHeaderTitle}>{this.props.title}</h3>
+                <button onClick={this.props.deleteList}>delete</button>
                 <AddNewItemForm addItem={this.props.addTask} />
             </div>
         )
