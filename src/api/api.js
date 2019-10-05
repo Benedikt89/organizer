@@ -30,6 +30,14 @@ export const todoListAPI = {
                 }
             })
     },
+    editTitle(listId, title) {
+        return instance.put('todo-lists/'+ listId, {title})
+            .then(res =>{
+                if(res.data.resultCode === 0) {
+                    return res.data;
+                }
+            })
+    },
 };
 
 export const taskAPI = {

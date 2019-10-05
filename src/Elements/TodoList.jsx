@@ -4,7 +4,7 @@ import TodoHeader from "./Header/Header";
 import TodoFooter from "./Footer/Footer";
 import TodoTasks from "./Tasks/TodoTasks";
 import {connect} from "react-redux";
-import {addTask, deleteList, deleteTask, editTask, getTasks} from "../Redux/reducers";
+import {addTask, deleteList, deleteTask, editTask, getTasks, editTitle} from "../Redux/reducers";
 
 
 class TodoList extends React.Component {
@@ -58,7 +58,9 @@ class TodoList extends React.Component {
             <div className={style.todoList}>
                 <TodoHeader
                     title={this.props.title}
+                    id={this.props.id}
                     addTask={this.addTask}
+                    editTitle={this.props.editTitle}
                     deleteList={()=>{this.props.deleteList(this.props.id)}}
                 />
 
@@ -84,6 +86,6 @@ class TodoList extends React.Component {
 
     }
 }
-const ConnectedList = connect(null, {addTask, deleteList, deleteTask, editTask, getTasks})(TodoList);
+const ConnectedList = connect(null, {addTask, deleteList, deleteTask, editTask, getTasks, editTitle})(TodoList);
 export default ConnectedList;
 

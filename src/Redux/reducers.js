@@ -7,6 +7,7 @@ const DELETE_TASK = 'DELETE_TASK';
 const EDIT_TASK = 'EDIT_TASK';
 const GET_TASK = 'GET_TASK';
 const GET_LISTS = 'GET_LISTS';
+const CHANGE_LIST_TITLE = 'CHANGE_LIST_TITLE';
 
 
 const initialState = {
@@ -96,7 +97,21 @@ const reducer = (state = initialState, action) => {
                     }
                 })
             };
-
+        case CHANGE_LIST_TITLE:
+                return {
+                    ...state,
+                    todolists: state.todolists.map(tl=> {
+                        if (tl.id === action.listId){
+                            return {
+                                ...tl,
+                                title: action.title,
+                            }
+                        }
+                        else {
+                            return tl;
+                        }
+                    })
+                };
                 default:
             return state;
     }
@@ -157,4 +172,9 @@ export const getTasks = (listId) => (dispatch) => {
             dispatch({type: GET_TASK, listId, tasks})
         })
 };
-
+export const editTitle = (listId, title) => (dispatch) => {
+    todoListAPI.editTitle(listId, title)
+        .then( data => {
+            dispatch({type: CHANGE_LIST_TITLE, listId, title})
+        })
+};
