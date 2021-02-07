@@ -1,18 +1,22 @@
 .App {
-background-color: black;
-}
-
-.todoList {
-  width: 500px;
   margin: 0 auto;
-  color: aliceblue;
 }
 
-.todoList > div {
-  padding: 10px;
-  color: aliceblue;
+.lists {
+  justify-content: center;
+  height: auto;
+  flex-wrap: wrap;
+  display: flex;
 }
 
-.todoList-task {
-  color: aliceblue;
+button{
+  background-color: black;
+  border: 1px solid green;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+button :hover {
+  border: 1px solid #006500;
+  cursor: pointer;
 }

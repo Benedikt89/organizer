@@ -1,7 +1,7 @@
 
 import React from "react";
-import './../App.css';
-import TodoTask from "./TodoTask";
+import '../../App.css';
+import TodoTask from "./Task/TodoTask";
 
 
 
@@ -11,9 +11,11 @@ class TodoTasks extends React.Component {
 
 
         let tasksO = this.props.tasks.map( task =>
-            <TodoTask taskName={task.taskName}
-                      ifChecked={task.ifChecked}
-                      priority={task.priority}
+            <TodoTask
+                id={task.id}
+                task={task}
+                deleteTask={this.props.deleteTask}
+                editTask={this.props.editTask}
             />
         );
 

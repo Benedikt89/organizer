@@ -1,0 +1,23 @@
+
+
+
+.todoListHeaderTitle
+{
+    text-align: center;
+
+    color: orangered;
+}
+.taskForm
+{
+    padding: 5px 8px;
+
+    color: white;
+    border: 1px solid #006914;
+    border-radius: 5px;
+    background-color: black;
+}
+.warning
+{
+    composes: taskForm;
+    border: 1px solid red;
+}

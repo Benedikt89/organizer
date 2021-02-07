@@ -1,53 +1,48 @@
 import React from 'react';
 import './App.css';
-import TodoHeader from "./Elements/Header";
-import TodoFooter from "./Elements/Footer";
-import TodoTasks from "./Elements/TodoTasks";
+import TodoList from "./Elements/TodoList";
+import AddNewItemForm from "./Elements/AddNewItemForm";
+import {connect} from "react-redux";
+import {addList, deleteList, getLists} from "./Redux/reducers";
 
 
 class App extends React.Component {
 
-    tasks = [
-        {
-            ifChecked: true,
-            taskName: 'JS',
-            priority: 'medium',
-        },
+    componentDidMount() {
+        this.props.getLists();
+    }
 
-        {
-            ifChecked: false,
-            taskName: 'React',
-            priority: 'high',
-        },
-
-        {
-            ifChecked: true,
-            taskName: 'Css',
-            priority: 'medium',
-        },
-
-        {
-            ifChecked: true,
-            taskName: 'THML',
-            priority: 'low',
-        },
-    ];
+    addList = (text) => {
+        this.props.addList(text);
+    };
 
     render = () => {
-
-
+        const todolists = this.props.todolists.map( tl =>
+            <TodoList
+                id={tl.id}
+                title={tl.title}
+                tasks={tl.tasks}
+                tasksFilter={tl.tasksFilter}
+            />
+        );
         return (
             <div className="App">
-                <div className="todoList">
-                    <TodoHeader/>
-                    <TodoTasks tasks={this.tasks}/>
-                    <TodoFooter filterValue={'Active'}/>
+
+                <AddNewItemForm className="formNewList" addItem={this.addList}/>
+                <div className="lists">
+                    {todolists}
                 </div>
+
             </div>
         );
-
     }
 }
 
-export default App;
+let mapStateToProps = (state) => {
+    return {
+        todolists: state.reducer.todolists,
+    }
+};
 
+const ConnectedApp = connect(mapStateToProps, {getLists, addList, deleteList})(App);
+export default ConnectedApp;

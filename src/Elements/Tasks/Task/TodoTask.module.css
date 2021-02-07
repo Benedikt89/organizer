@@ -1,0 +1,61 @@
+
+
+.deleteBtn
+{
+    max-width: 20px;
+    max-height: 20px;
+    padding: 1px;
+
+    border-color: orangered;
+}
+
+.task
+{
+    display: grid;
+    align-items: center;
+
+    margin: 5px;
+    padding: 2px;
+
+    text-align: center;
+
+    border: 1px solid #001e00;
+    border-radius: 5px;
+
+    grid-template: '20px 1fr 200px 60px 30px';
+}
+.completed
+{
+    border-color: orange;
+
+    composes: task;
+}
+.taskForm
+{
+    padding: 2px 8px;
+
+    color: white;
+    border: 1px solid #006914;
+    border-radius: 5px;
+    background-color: black;
+}
+.warning
+{
+    padding: 5px 8px;
+
+    color: white;
+    border: 1px solid red;
+    border-radius: 5px;
+    background-color: black;
+}
+.taskContent
+{
+    align-items: center;
+    justify-content: center;
+
+    max-width: 120px;
+
+    word-wrap: break-word;
+
+    background: no-repeat;
+}
